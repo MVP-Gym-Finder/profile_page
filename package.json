@@ -1,0 +1,38 @@
+{
+  "name": "mvp_ct_profile_page",
+  "version": "1.0.0",
+  "description": "user profile page for MVP",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/index.js",
+    "build": "webpack -d -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MVP-Gym-Finder/profile_page.git"
+  },
+  "author": "Christine Ting",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MVP-Gym-Finder/profile_page/issues"
+  },
+  "homepage": "https://github.com/MVP-Gym-Finder/profile_page#readme",
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "cors": "^2.8.5",
+    "express": "^4.15.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2",
+    "path": "^0.12.7",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}
