@@ -75,6 +75,10 @@ const Info = sequelize.define('Info', {
   min_per_workout: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  image: {
+    type: DataTypes.INTEGER,
+    allowNull: true
   }
   }, {
     tableName: 'info',

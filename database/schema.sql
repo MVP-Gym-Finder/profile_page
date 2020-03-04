@@ -22,5 +22,6 @@ CREATE TABLE info (
   weekly_goal VARCHAR NOT NULL,
   activity_lvl VARCHAR NOT NULL,
   workouts_per_wk INT NOT NULL,
-  min_per_workout INT NOT NULL
+  min_per_workout INT NOT NULL,
+  image VARCHAR NOT NULL
 )

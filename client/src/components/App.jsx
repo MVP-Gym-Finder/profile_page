@@ -5,6 +5,7 @@ import PersonalDetails from './PersonalDetails.jsx';
 import Goals from './Goals.jsx';
 import FitnessGoals from './FitnessGoals.jsx';
 import BasicInfo from './BasicInfo.jsx';
+import ProfilePic from './ProfilePic.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -32,12 +33,15 @@ class App extends React.Component {
             <h1>{profile.first_name}'s Profile</h1>
             <h2>Personal Details</h2>
             <PersonalDetails profile={profile}/>
+            <button>edit</button>
             <h2>Goals</h2>
             <Goals profile={profile}/>
+            <button>edit</button>
             <h2>Fitness Goals</h2>
             <FitnessGoals profile={profile}/>
+            <button>edit</button>
             <BMR profile={profile}/>
-            <BasicInfo profile={profile}/>
+            <ProfilePic profile={profile}/>
           </div>
         }
       </div>

@@ -40,6 +40,18 @@ const controllers = {
         res.status(403).send(err);
       });
   },
+  upload: (req, res) => {
+    console.log(req)
+    console.log(req.file)
+    // upload(req, res, (err) => {
+    //   console.log("Request ---", req.body);
+    //   console.log("Request file ---", req.file);//Here you get file.
+    //   /*Now do where ever you want to do*/
+    //   if(!err) {
+    //       return res.send(200).end();
+    //   }
+    // })
+  }
 };
 
 module.exports = controllers;

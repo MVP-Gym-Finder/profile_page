@@ -14,7 +14,8 @@ var example = [{
   weekly_goal: 'Lose 0.5 lbs per week',
   activity_lvl: 'Active',
   workouts_per_wk: 3,
-  min_per_workout: 60
+  min_per_workout: 60,
+  image: 'https://ctmvp.s3-us-west-1.amazonaws.com/IMG_3501.JPG'
 }];
 
 const Info = require('./index.js');
