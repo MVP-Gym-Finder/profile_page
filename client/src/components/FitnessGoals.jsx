@@ -10,6 +10,8 @@ class FitnessGoals extends React.Component {
   render() {
     let { profile } = this.props;
     let title = ['Workouts/Week', 'Minutes/Workout'];
+    let workouts = [...Array(29).keys()];
+    console.log(workouts)
     return (
       <table>
         <tbody>
@@ -17,6 +19,13 @@ class FitnessGoals extends React.Component {
             <tr key={index}>
               <td>{title[index]}</td>
               <td>{info[1]}</td>
+              <td>
+                <select>
+                { workouts.map((freq) => 
+                    <option value={freq}>{freq}</option>
+                ) }
+                </select>
+              </td>
             </tr>
           )}
         </tbody>
