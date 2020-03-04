@@ -3,7 +3,9 @@ const controllers = require('./controllers.js');
 
 router
   .route('/')
-  .get(controllers.get);
+  .get(controllers.get)
+  .put(controllers.put)
+  .post(controllers.post);
 
 const path = require("path");
 const multer = require("multer");

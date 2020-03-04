@@ -12,17 +12,17 @@ const controllers = {
     });
   },
   post: (req, res) => {
-    models.post(req.body)
-      .then(() => {
-        res.status(201).send('posted');
-      })
-      .catch((err) => {
-        res.status(401).send(err);
-      });
+    console.log(req.body)
+    // models.post(req.body)
+    //   .then(() => {
+    //     res.status(201).send('posted');
+    //   })
+    //   .catch((err) => {
+    //     res.status(401).send(err);
+    //   });
   },
   put: (req, res) => {
-    const { id } = req.params;
-    models.put(req.body, { where: { id } })
+    models.put(req.body)
       .then(() => {
         res.status(202).send('updated');
       })

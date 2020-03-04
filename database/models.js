@@ -7,8 +7,8 @@ const models = {
   post: (info) => {
     return Info.create(info);
   },
-  put: (id, content) => {
-    return Info.update(content, { where: { id } });
+  put: (content) => {
+    return Info.update(content, { where: { id: 0 } });
   },
   delete: (id) => {
     return Info.destroy({ where: { id } });

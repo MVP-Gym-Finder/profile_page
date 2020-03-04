@@ -10,22 +10,23 @@ class PersonalDetails extends React.Component {
   render() {
     let { profile } = this.props;
     let title = ['Height', 'Weight', 'Age', 'Gender','DOB', 'Zip Code'];
+    let dbTitle = ['height', 'weight', 'age', 'gender','dob', 'zip'];
     return (
       <table>
         <tbody>
-          { Object.entries(profile).slice(3,9).map((info, index) => {
-            if (info[0] === 'height') {
+          { title.map((title, index) => {
+            if (dbTitle[index] === 'height') {
               return (
-              <tr key={index}>
-                <td>{title[index]}</td>
-                <td>{info[1].split('/')[0]}ft {info[1].split('/')[1]}in</td>
-              </tr>
+                <tr key={index}>
+                  <td>{title}</td>
+                  <td>{profile[dbTitle[index]].split('/')[0]}ft {profile[dbTitle[index]].split('/')[1]}in</td>
+                </tr>
               )
             } else {
               return (
                 <tr key={index}>
-                  <td>{title[index]}</td>
-                  <td>{info[1]}</td>
+                  <td>{title}</td>
+                  <td>{profile[dbTitle[index]]}</td>
                 </tr>
               )
             }

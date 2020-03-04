@@ -10,15 +10,18 @@ class Goals extends React.Component {
   render() {
     let { profile } = this.props;
     let title = ['Current Weight', 'Goal Weight', 'Weekly Goal', 'Activity Level'];
+    let dbTitle = ['weight', 'goal_w', 'weekly_goal', 'activity_lvl'];
     return (
       <table>
         <tbody>
-          { Object.entries(profile).slice(9,13).map((info, index) => 
-            <tr key={index}>
-              <td>{title[index]}</td>
-              <td>{info[1]}</td>
-            </tr>
-          )}
+          { title.map((title, index) => {
+              return (
+                <tr key={index}>
+                  <td>{title}</td>
+                  <td>{profile[dbTitle[index]]}</td>
+                </tr>
+              )
+          })}
         </tbody>
       </table>
     )

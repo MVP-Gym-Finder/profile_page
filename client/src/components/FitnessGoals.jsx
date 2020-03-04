@@ -1,33 +1,54 @@
 import React from 'react';
+import axios from 'axios';
 
 class FitnessGoals extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-
+      workouts_per_wk: props.profile.workouts_per_wk,
+      min_per_workout: props.profile.min_per_workout
     };
+    this.changeHandler = this.changeHandler.bind(this);
   };
+
+  changeHandler(e) {
+    let workout = {
+      [e.target.name]: e.target.value
+    };
+    this.setState(workout)
+    axios
+      .put('/api', workout)
+      .then(() => console.log('workout changed'))
+      .catch(err => console.error(err));
+  };
+
   render() {
-    let { profile } = this.props;
-    let title = ['Workouts/Week', 'Minutes/Workout'];
-    let workouts = [...Array(29).keys()];
-    console.log(workouts)
+    let weekly_workouts = [...Array(29).keys()];
+    let workout_min = [...Array(361).keys()];
     return (
       <table>
         <tbody>
-          { Object.entries(profile).slice(13,15).map((info, index) => 
-            <tr key={index}>
-              <td>{title[index]}</td>
-              <td>{info[1]}</td>
-              <td>
-                <select>
-                { workouts.map((freq) => 
-                    <option value={freq}>{freq}</option>
+          <tr>
+            <td>Workouts/Week</td>
+            <td>
+              <select onChange={(e) => this.changeHandler(e)} value={this.state.workouts_per_wk} name="workouts_per_wk">
+                { weekly_workouts.map((freq, index) => 
+                <option value={freq} key={index}>{freq}</option>
                 ) }
-                </select>
-              </td>
-            </tr>
-          )}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Minutes/Workout</td>
+            <td>
+              <select onChange={(e) => this.changeHandler(e)} value={this.state.min_per_workout} name="min_per_workout">
+                { workout_min.map((min, index) => 
+                <option value={min} key={index}>{min}</option>
+                ) }
+              </select>
+            </td>
+          </tr>
+
         </tbody>
       </table>
     )
