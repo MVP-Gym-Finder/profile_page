@@ -16,6 +16,7 @@ class EditDetails extends React.Component {
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
+    console.log(this.state)
   };
 
   changeHandler(e) {
@@ -23,42 +24,53 @@ class EditDetails extends React.Component {
   };
 
   saveChanges(e) {
-    window.location.reload();
-    let details = this.state;
-    details.height = `${this.state.heightFt}/${this.state.heightIn}`;
-    delete details.heightFt;
-    delete details.heightIn;
-    details.weight = `${this.state.weight} lbs`;
-    axios
-      .put('/api', details)
-      .then(() => console.log('details editted'))
-      .catch(err => console.error(err));
+    let { heightFt, heightIn, weight, age, dob, zip } = this.state;
+    let monthArr = [ ...Array(12).keys() ].map( i => i+1);
+    let dayArr = [ ...Array(31).keys() ].map( i => i+1);
+    if (!Number(heightFt) || !Number(heightIn) || !Number(weight) || typeof age !== 'number' || typeof zip !== 'number'
+    || !monthArr.includes(Number(dob.split('/')[0])) || !dayArr.includes(Number(dob.split('/')[1])) || dob.split('/')[2].length !== 4 
+    || !Number(dob.split('/')[2])) {
+      alert('please enter valid input');
+    } else {
+      window.location.reload();
+      let details = this.state;
+      details.height = `${this.state.heightFt}/${this.state.heightIn}`;
+      delete details.heightFt;
+      delete details.heightIn;
+      details.weight = `${this.state.weight} lbs`;
+      axios
+        .put('/api', details)
+        .then(() => console.log('details editted'))
+        .catch(err => console.error(err));
+    }
   }
 
   render() {
     let { heightFt, heightIn, weight, age, gender, dob, zip } = this.state;
+    let { profile } = this.props;
     return (
-      <div>
-        <h2>Edit Personal Details</h2>
-        <table>
+      <div className="ct_edit_details">
+        <div className="ct_top">{profile.first_name}'s Profile</div>
+        <div className="ct_title">Edit Personal Details</div>
+        <table className="ct_table">
           <tbody>
             <tr>
               <td>Height:</td>
               <td>
-                <input value={heightFt} name="heightFt" onChange={(e) => this.changeHandler(e)}></input>ft
-                <input value={heightIn} name="heightIn" onChange={(e) => this.changeHandler(e)}></input>in
+                <input className="ct_ht_input" value={heightFt} name="heightFt" onChange={(e) => this.changeHandler(e)}></input>&nbsp;ft&nbsp;
+                <input className="ct_ht_input" value={heightIn} name="heightIn" onChange={(e) => this.changeHandler(e)}></input>&nbsp;in
               </td>
             </tr>
             <tr>
               <td>Weight:</td>
                 <td>
-                  <input value={weight} name="weight" onChange={(e) => this.changeHandler(e)}></input>lbs
+                  <input className="ct_input" value={weight} name="weight" onChange={(e) => this.changeHandler(e)}></input>&nbsp;lbs
                 </td>
             </tr>
             <tr>
               <td>Age:</td>
                 <td>
-                  <input value={age} name="age" onChange={(e) => this.changeHandler(e)}></input>
+                  <input className="ct_input" value={age} name="age" onChange={(e) => this.changeHandler(e)}></input>
                 </td>
             </tr>
             <tr>
@@ -73,18 +85,18 @@ class EditDetails extends React.Component {
             <tr>
               <td>Date of Birth:</td>
                 <td>
-                  <input value={dob} placeholder="MM/DD/YYYY" name="dob" onChange={(e) => this.changeHandler(e)}></input>
+                  <input className="ct_input" value={dob} placeholder="MM/DD/YYYY" name="dob" onChange={(e) => this.changeHandler(e)}></input>
                 </td>
             </tr>
             <tr>
               <td>Zip Code:</td>
                 <td>
-                  <input value={zip} name="zip" onChange={(e) => this.changeHandler(e)}></input>
+                  <input className="ct_input" value={zip} name="zip" onChange={(e) => this.changeHandler(e)}></input>
                 </td>
             </tr>
           </tbody>
         </table>
-      <button name="editDetails" onClick={(e) => this.saveChanges(e)}>Save Changes</button>
+      <button className="ct_save_btn" name="editDetails" onClick={(e) => this.saveChanges(e)}>Save</button>
       </div>
     )
   };

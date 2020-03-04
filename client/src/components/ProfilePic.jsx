@@ -1,5 +1,4 @@
 import React from 'react';
-import BasicInfo from './BasicInfo.jsx';
 import axios from 'axios';
 
 class ProfilePic extends React.Component {
@@ -33,13 +32,12 @@ onChange(e) {
 render() {
   let { profile } = this.props;
     return (
-      <div>
+      <div className="ct_profile_pic">
         <img src={profile.image} height={300}/>
-        <BasicInfo profile={profile}/>
-        <form onSubmit={this.onFormSubmit}>
+        {/* <form onSubmit={this.onFormSubmit}>
             <input type="file" name="myImage" onChange= {this.onChange} />
             <button type="submit">Upload</button>
-        </form>
+        </form> */}
       </div>
     )
 }

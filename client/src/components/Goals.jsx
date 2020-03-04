@@ -12,7 +12,7 @@ class Goals extends React.Component {
     let title = ['Current Weight', 'Goal Weight', 'Weekly Goal', 'Activity Level'];
     let dbTitle = ['weight', 'goal_w', 'weekly_goal', 'activity_lvl'];
     return (
-      <table>
+      <table className="ct_table">
         <tbody>
           { title.map((title, index) => {
               return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Select from 'react-select';
 
 class FitnessGoals extends React.Component {
   constructor(props) {
@@ -25,8 +26,10 @@ class FitnessGoals extends React.Component {
   render() {
     let weekly_workouts = [...Array(29).keys()];
     let workout_min = [...Array(361).keys()];
+    // const options1 = weekly_workouts.map((qty) => ({ value: qty, label: qty }));
+    // console.log(options1)
     return (
-      <table>
+      <table className="ct_table">
         <tbody>
           <tr>
             <td>Workouts/Week</td>

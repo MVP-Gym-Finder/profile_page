@@ -36,20 +36,26 @@ class App extends React.Component {
     if (editDetails) return <EditDetails profile={profile}/>;
     if (editGoals) return <EditGoals profile={profile}/>;
     return (
-      <div>
+      <div className="ct_main">
+        <div className="ct_top">{profile.first_name}'s Profile</div>
         { Object.keys(profile).length && 
-          <div>
-            <h1>{profile.first_name}'s Profile</h1>
-            <h2>Personal Details</h2>
+          <div className="ct_profile">
+            <div className="ct_pic_BMR">
+              <ProfilePic profile={profile}/>
+              <BMR profile={profile}/>
+            </div>
+            <hr className="ct_hr"/>
+            <div className="ct_title">Personal Details</div>
             <PersonalDetails profile={profile}/>
-            <button name="editDetails" onClick={(e) => this.clickHandler(e)}>edit</button>
-            <h2>Goals</h2>
+            <button className="ct_edit_btn" name="editDetails" onClick={(e) => this.clickHandler(e)}>edit</button>
+            <hr className="ct_hr"/>
+            <div className="ct_title">Goals</div>
             <Goals profile={profile}/>
-            <button name="editGoals" onClick={(e) => this.clickHandler(e)}>edit</button>
-            <h2>Fitness Goals</h2>
+            <button className="ct_edit_btn" name="editGoals" onClick={(e) => this.clickHandler(e)}>edit</button>
+            <hr className="ct_hr"/>
+            <div className="ct_title">Fitness Goals</div>
             <FitnessGoals profile={profile}/>
-            <ProfilePic profile={profile}/>
-            <BMR profile={profile}/>
+            <hr className="ct_hr"/>
           </div>
         }
       </div>

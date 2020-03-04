@@ -12,7 +12,7 @@ class PersonalDetails extends React.Component {
     let title = ['Height', 'Weight', 'Age', 'Gender','DOB', 'Zip Code'];
     let dbTitle = ['height', 'weight', 'age', 'gender','dob', 'zip'];
     return (
-      <table>
+      <table className="ct_table">
         <tbody>
           { title.map((title, index) => {
             if (dbTitle[index] === 'height') {

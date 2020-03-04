@@ -15,14 +15,19 @@ class EditGoals extends React.Component {
   };
 
   saveChanges() {
-    window.location.reload();
-    let goals = this.state;
-    goals.weight = `${this.state.weight} lbs`;
-    goals.goal_w = `${this.state.goal_w} lbs`;
-    axios
-      .put('/api', goals)
-      .then(() => console.log('goals updated'))
-      .catch(err => console.error(err));
+    let { weight, goal_w } = this.state;
+    if (!Number(weight) || !Number(goal_w)) {
+      alert('please enter valid input');
+    } else {
+      window.location.reload();
+      let goals = this.state;
+      goals.weight = `${this.state.weight} lbs`;
+      goals.goal_w = `${this.state.goal_w} lbs`;
+      axios
+        .put('/api', goals)
+        .then(() => console.log('goals updated'))
+        .catch(err => console.error(err));
+    }
   }
 
   changeHandler(e) {
@@ -33,21 +38,23 @@ class EditGoals extends React.Component {
     let { weight, goal_w, weekly_goal, activity_lvl } = this.state;
     let goals = ['Lose 0.5 lbs per week', 'Lose 1 lb per week', 'Lose 1.5 lbs per week', 'Lose 2 lbs per week', 'Maintain weight', 'Gain 0.5 lbs per week', 'Gain 1 lb per week'];
     let levels = ['Not Very Active', 'Lightly Active', 'Active', 'Very Active'];
+    let { profile } = this.props;
     return (
-      <div>
-        <h2>Edit Goals</h2>
-        <table>
+      <div className="ct_edit_goals">
+        <div className="ct_top">{profile.first_name}'s Profile</div>
+        <div className="ct_title">Edit Goals</div>
+        <table className="ct_table">
           <tbody>
             <tr>
               <td>Current Weight: </td>
               <td>
-                <input value={weight} name="weight" onChange={(e) => this.changeHandler(e)}></input>lbs
+                <input className="ct_input" value={weight} name="weight" onChange={(e) => this.changeHandler(e)}></input>&nbsp;lbs
               </td>
             </tr>
             <tr>
               <td>Goal Weight: </td>
               <td>
-                <input value={goal_w} name="goal_w" onChange={(e) => this.changeHandler(e)}></input>lbs
+                <input className="ct_input" value={goal_w} name="goal_w" onChange={(e) => this.changeHandler(e)}></input>&nbsp;lbs
               </td>
             </tr>
             <tr>
@@ -72,7 +79,7 @@ class EditGoals extends React.Component {
             </tr>
           </tbody>
         </table>
-      <button name="editGoals" onClick={(e) => this.saveChanges(e)}>Save Changes</button>
+      <button className="ct_save_btn" name="editGoals" onClick={(e) => this.saveChanges(e)}>Save</button>
       </div>
     )
   };

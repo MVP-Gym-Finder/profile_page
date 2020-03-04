@@ -1,4 +1,5 @@
 import React from 'react';
+import BasicInfo from './BasicInfo.jsx';
 
 class BMR extends React.Component {
   constructor(props) {
@@ -24,16 +25,16 @@ class BMR extends React.Component {
       BMR = Math.round(10 * W + 6.25 * H - 5 * profile.age + 5);
     }
     if (profile.activity_lvl === 'Active') {
-      BMR *= 1.5;
+      BMR = Math.round(BMR * 1.5);
     }
     if (profile.activity_lvl === 'Not Active') {
-      BMR *= 1.2;
+      BMR = Math.round(BMR * 1.2);
     }
     if (profile.activity_lvl === 'Lightly Active') {
-      BMR *= 1.4;
+      BMR = Math.round(BMR * 1.4);
     }
     if (profile.activity_lvl === 'Very Active') {
-      BMR *= 1.8;
+      BMR = Math.round(BMR * 1.8);
     }
     if (keyword === 'Lose') {
       target = BMR - diff * 500;
@@ -53,17 +54,21 @@ class BMR extends React.Component {
     let { profile } = this.props;
     let { BMR, verb, target } = this.state;
     return (
-      <div>In order to {profile.weekly_goal[0].toLowerCase()}{profile.weekly_goal.slice(1)},&nbsp;
-        { verb === 'maintain' ? (
-          <span>
-            your daily calorie intake will be {BMR} calories per day.
-          </span>
-        ) : (
-          <span>
-            you will need to {verb} your daily calorie intake 
-            from your normal maintenance level of {BMR} calories per day, to {target} calories per day.
-          </span>
-        ) }
+      <div className="ct_BMR">
+        <BasicInfo profile={profile}/>
+        <div id="ct_BMR_statement">
+          "In order to {profile.weekly_goal[0].toLowerCase()}{profile.weekly_goal.slice(1)},&nbsp;
+          { verb === 'maintain' ? (
+            <span>
+              your daily calorie intake will be {BMR} calories per day."
+            </span>
+          ) : (
+            <span>
+              you will need to {verb} your daily calorie intake 
+              from your normal maintenance level of {BMR} calories per day, to {target} calories per day."
+            </span>
+          ) }
+        </div>
       </div>
     );
   };
