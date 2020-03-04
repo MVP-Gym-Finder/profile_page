@@ -1,20 +1,28 @@
 import React from 'react';
-import App from './App.jsx';
+import axios from 'axios';
 
 class EditGoals extends React.Component {
   constructor(props) {
     super(props);
-    let { weight, goal_w, weekly_goal } = props.profile;
+    let { weight, goal_w, weekly_goal, activity_lvl } = props.profile;
     this.state = {
       weight: weight.split(' ')[0],
       goal_w: goal_w.split(' ')[0],
-      weekly_goal
+      weekly_goal,
+      activity_lvl
     };
     this.saveChanges = this.saveChanges.bind(this);
   };
 
   saveChanges() {
     window.location.reload();
+    let goals = this.state;
+    goals.weight = `${this.state.weight} lbs`;
+    goals.goal_w = `${this.state.goal_w} lbs`;
+    axios
+      .put('/api', goals)
+      .then(() => console.log('goals updated'))
+      .catch(err => console.error(err));
   }
 
   changeHandler(e) {
@@ -22,8 +30,9 @@ class EditGoals extends React.Component {
   }
 
   render() {
-    let { weight, goal_w, weekly_goal } = this.state;
-    console.log(weekly_goal)
+    let { weight, goal_w, weekly_goal, activity_lvl } = this.state;
+    let goals = ['Lose 0.5 lbs per week', 'Lose 1 lb per week', 'Lose 1.5 lbs per week', 'Lose 2 lbs per week', 'Maintain weight', 'Gain 0.5 lbs per week', 'Gain 1 lb per week'];
+    let levels = ['Not Very Active', 'Lightly Active', 'Active', 'Very Active'];
     return (
       <div>
         <h2>Edit Goals</h2>
@@ -45,14 +54,25 @@ class EditGoals extends React.Component {
               <td>Weekly Goal: </td>
               <td>
                 <select value={weekly_goal} name="weekly_goal" onChange={(e) => this.changeHandler(e)}>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
+                  { goals.map((goal, index) => 
+                    <option value={goal} key={index}>{goal}</option>
+                  ) }
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Activity Level: </td>
+              <td>
+                <select value={activity_lvl} name="activity_lvl" onChange={(e) => this.changeHandler(e)}>
+                  { levels.map((level, index) => 
+                    <option value={level} key={index}>{level}</option>
+                  ) }
                 </select>
               </td>
             </tr>
           </tbody>
         </table>
-      <button name="editGoals" onClick={(e) => this.props.saveChanges(e)}>Save Changes</button>
+      <button name="editGoals" onClick={(e) => this.saveChanges(e)}>Save Changes</button>
       </div>
     )
   };
