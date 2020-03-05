@@ -6,3 +6,7 @@ node_modules
 
 ## Compiled Dirs ##
 CTbundle.js
+
+## security key ##
+src/env/key.js
+compiled/env/key.js
