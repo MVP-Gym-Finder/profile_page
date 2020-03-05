@@ -37,19 +37,31 @@ table.ct_table {
   margin-right: auto;
   width: 30%;
   text-align: left;
-  /* background-color: yellow; */
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 110px;
-  /* padding-right: 20px; */
   line-height: 30px;
+  margin-left: 40%;
+}
+
+#ct_table_fitness_goals {
+  width: 20%;
+  margin-left: 41%;
+}
+
+#ct_table_goals {
+
+}
+
+#ct_table_personal_details {
+  margin-left: 42%;
 }
 
 .ct_hr {
   width: 60%;
   margin-top: 20px;
   margin-bottom: 20px;
-  border-color: white;
+}
+
+.ct_personal_details {
+
 }
 
 .ct_pic_BMR {
@@ -98,6 +110,7 @@ table.ct_table {
   border-color: rgb(173, 173, 173);
   text-align: center;
   color: grey;
+  margin-top: 20px;
 }
 
 .ct_edit_btn:focus {
@@ -117,6 +130,7 @@ table.ct_table {
   border-color: rgb(173, 173, 173);
   text-align: center;
   color: grey;
+  margin-top: 20px;
 }
 
 .ct_save_btn:focus {
@@ -162,4 +176,9 @@ table.ct_table {
 .ct_edit_goals {
   text-align: center;
   padding-bottom: 100px;
+}
+
+.ct_dropdown {
+  height: 170px;
+  overflow-y: scroll;
 }

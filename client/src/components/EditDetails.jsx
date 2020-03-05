@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
 class EditDetails extends React.Component {
@@ -12,16 +14,23 @@ class EditDetails extends React.Component {
       age,
       gender,
       dob,
-      zip
+      zip,
+      dropdownOpen: false,
     };
-    this.changeHandler = this.changeHandler.bind(this);
     this.saveChanges = this.saveChanges.bind(this);
-    console.log(this.state)
+    this.toggle = this.toggle.bind(this);
+    this.clickDropdown = this.clickDropdown.bind(this);
   };
 
-  changeHandler(e) {
-    this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
   };
+
+  clickDropdown(e) {
+    this.setState({ gender: e.target.innerText });
+  }
 
   saveChanges(e) {
     let { heightFt, heightIn, weight, age, dob, zip } = this.state;
@@ -76,10 +85,15 @@ class EditDetails extends React.Component {
             <tr>
               <td>Gender:</td>
                 <td>
-                  <select value={gender} name="gender" onChange={(e) => this.changeHandler(e)}>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                  </select>
+                  <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="m" direction="right">
+                    <DropdownToggle outline color="secondary" caret>
+                      {gender}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem onClick={(e) => this.clickDropdown(e)}>Female</DropdownItem>
+                      <DropdownItem onClick={(e) => this.clickDropdown(e)}>Male</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
                 </td>
             </tr>
             <tr>

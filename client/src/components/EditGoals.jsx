@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
 class EditGoals extends React.Component {
@@ -9,9 +11,14 @@ class EditGoals extends React.Component {
       weight: weight.split(' ')[0],
       goal_w: goal_w.split(' ')[0],
       weekly_goal,
-      activity_lvl
+      activity_lvl,
+      dropdownOpen1: false,
+      dropdownOpen2: false
     };
     this.saveChanges = this.saveChanges.bind(this);
+    this.toggle1 = this.toggle1.bind(this);
+    this.toggle2 = this.toggle2.bind(this);
+    this.clickDropdown = this.clickDropdown.bind(this);
   };
 
   saveChanges() {
@@ -34,8 +41,27 @@ class EditGoals extends React.Component {
     this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
   }
 
+  toggle1() {
+    this.setState({
+      dropdownOpen1: !this.state.dropdownOpen1
+    });
+  };
+
+  toggle2() {
+    this.setState({
+      dropdownOpen2: !this.state.dropdownOpen2
+    });
+  };
+
+  clickDropdown(e) {
+    let goal = {
+      [e.target.name]: e.target.innerText
+    };
+    this.setState(goal)
+  }
+
   render() {
-    let { weight, goal_w, weekly_goal, activity_lvl } = this.state;
+    let { weight, goal_w, weekly_goal, activity_lvl, dropdownOpen1, dropdownOpen2 } = this.state;
     let goals = ['Lose 0.5 lbs per week', 'Lose 1 lb per week', 'Lose 1.5 lbs per week', 'Lose 2 lbs per week', 'Maintain weight', 'Gain 0.5 lbs per week', 'Gain 1 lb per week'];
     let levels = ['Not Very Active', 'Lightly Active', 'Active', 'Very Active'];
     let { profile } = this.props;
@@ -60,21 +86,27 @@ class EditGoals extends React.Component {
             <tr>
               <td>Weekly Goal: </td>
               <td>
-                <select value={weekly_goal} name="weekly_goal" onChange={(e) => this.changeHandler(e)}>
-                  { goals.map((goal, index) => 
-                    <option value={goal} key={index}>{goal}</option>
-                  ) }
-                </select>
+                <Dropdown isOpen={dropdownOpen1} toggle={this.toggle1} size="sm" direction="right">
+                  <DropdownToggle outline color="secondary" caret>
+                    {weekly_goal}
+                  </DropdownToggle>
+                  <DropdownMenu className="ct_dropdown">
+                    { goals.map((goal, index) =>  <DropdownItem name="weekly_goal" key={index} onClick={(e) => this.clickDropdown(e)}>{goal}</DropdownItem>) }
+                  </DropdownMenu>
+                </Dropdown>
               </td>
             </tr>
             <tr>
               <td>Activity Level: </td>
               <td>
-                <select value={activity_lvl} name="activity_lvl" onChange={(e) => this.changeHandler(e)}>
-                  { levels.map((level, index) => 
-                    <option value={level} key={index}>{level}</option>
-                  ) }
-                </select>
+                <Dropdown isOpen={dropdownOpen2} toggle={this.toggle2} size="sm" direction="right">
+                  <DropdownToggle outline color="secondary" caret>
+                    {activity_lvl}
+                  </DropdownToggle>
+                  <DropdownMenu className="ct_dropdown">
+                    { levels.map((level, index) =>  <DropdownItem name="activity_lvl" key={index} onClick={(e) => this.clickDropdown(e)}>{level}</DropdownItem>) }
+                  </DropdownMenu>
+                </Dropdown>
               </td>
             </tr>
           </tbody>

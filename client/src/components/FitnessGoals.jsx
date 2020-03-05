@@ -1,57 +1,81 @@
 import React from 'react';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
-import Select from 'react-select';
 
 class FitnessGoals extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       workouts_per_wk: props.profile.workouts_per_wk,
-      min_per_workout: props.profile.min_per_workout
+      min_per_workout: props.profile.min_per_workout,
+      dropdownOpen1: false,
+      dropdownOpen2: false
     };
-    this.changeHandler = this.changeHandler.bind(this);
+    this.toggle1 = this.toggle1.bind(this);
+    this.toggle2 = this.toggle2.bind(this);
+    this.clickDropdown = this.clickDropdown.bind(this);
   };
 
-  changeHandler(e) {
+  toggle1() {
+    this.setState({
+      dropdownOpen1: !this.state.dropdownOpen1
+    });
+  };
+
+  toggle2() {
+    this.setState({
+      dropdownOpen2: !this.state.dropdownOpen2
+    });
+  };
+
+  clickDropdown(e) {
     let workout = {
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.innerText
     };
     this.setState(workout)
     axios
       .put('/api', workout)
       .then(() => console.log('workout changed'))
       .catch(err => console.error(err));
-  };
+    console.log(e.target.name)
+    console.log(e.target.innerText)
+  }
 
   render() {
     let weekly_workouts = [...Array(29).keys()];
     let workout_min = [...Array(361).keys()];
-    // const options1 = weekly_workouts.map((qty) => ({ value: qty, label: qty }));
-    // console.log(options1)
+    let { min_per_workout,  workouts_per_wk, dropdownOpen1, dropdownOpen2 } = this.state;
+
     return (
-      <table className="ct_table">
+      <table className="ct_table" id="ct_table_fitness_goals">
         <tbody>
           <tr>
             <td>Workouts/Week</td>
             <td>
-              <select onChange={(e) => this.changeHandler(e)} value={this.state.workouts_per_wk} name="workouts_per_wk">
-                { weekly_workouts.map((freq, index) => 
-                <option value={freq} key={index}>{freq}</option>
-                ) }
-              </select>
+              <Dropdown isOpen={dropdownOpen1} toggle={this.toggle1} size="sm" direction="right">
+                <DropdownToggle outline color="secondary" caret>
+                  {workouts_per_wk}
+                </DropdownToggle>
+                <DropdownMenu className="ct_dropdown">
+                  { weekly_workouts.map((qty, index) =>  <DropdownItem name="workouts_per_wk" key={index} onClick={(e) => this.clickDropdown(e)}>{qty}</DropdownItem>) }
+                </DropdownMenu>
+              </Dropdown>
             </td>
           </tr>
           <tr>
             <td>Minutes/Workout</td>
             <td>
-              <select onChange={(e) => this.changeHandler(e)} value={this.state.min_per_workout} name="min_per_workout">
-                { workout_min.map((min, index) => 
-                <option value={min} key={index}>{min}</option>
-                ) }
-              </select>
+              <Dropdown isOpen={dropdownOpen2} toggle={this.toggle2} size="sm" direction="right">
+                <DropdownToggle outline color="secondary" caret>
+                  {min_per_workout}
+                </DropdownToggle>
+                <DropdownMenu className="ct_dropdown">
+                  { workout_min.map((min, index) =>  <DropdownItem name="min_per_workout" key={index} onClick={(e) => this.clickDropdown(e)}>{min}</DropdownItem>) }
+                </DropdownMenu>
+              </Dropdown>
             </td>
           </tr>
-
         </tbody>
       </table>
     )
