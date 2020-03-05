@@ -8,5 +8,4 @@ node_modules
 CTbundle.js
 
 ## security key ##
-src/env/key.js
-compiled/env/key.js
+client/env/key.js
