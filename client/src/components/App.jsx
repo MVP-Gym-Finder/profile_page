@@ -7,9 +7,6 @@ import ProfilePic from './ProfilePic.jsx';
 import EditDetails from './EditDetails.jsx';
 import EditGoals from './EditGoals.jsx';
 import axios from 'axios';
-import { Container } from 'reactstrap';
-import FileUpload from './FileUpload.jsx';
-
 
 class App extends React.Component {
   constructor() {

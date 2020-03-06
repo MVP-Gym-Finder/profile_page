@@ -182,3 +182,40 @@ table.ct_table {
   height: 170px;
   overflow-y: scroll;
 }
+
+.ct_upload {
+  color: blue;
+}
+
+.ct_upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.ct_upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.ct_upload_btn {
+  background-color: transparent;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 3px 10px 3px 10px;
+  border-color: rgb(173, 173, 173);
+  text-align: center;
+  color: grey;
+}
+
+.ct_upload_btn:focus {
+  outline: none;
+}
+
+.ct_small_txt {
+  font-size: 15px;
+  color: grey;
+}

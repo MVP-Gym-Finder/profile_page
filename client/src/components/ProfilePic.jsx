@@ -6,11 +6,17 @@ class ProfilePic extends React.Component {
     super(props);
     this.state ={
       selectedFile: null,
-      image: props.profile.image
+      image: props.profile.image,
+      editImg: false
     };
     this.fileChangedHandler = this.fileChangedHandler.bind(this);
     this.fileUploadHandler = this.fileUploadHandler.bind(this);
+    this.editImage = this.editImage.bind(this);
   }
+
+  editImage() {
+    this.setState({ editImg: true });
+  };
 
   fileChangedHandler(e) {
     this.setState({
@@ -46,7 +52,7 @@ class ProfilePic extends React.Component {
               // Success
               let fileName = response.data;
               console.log( 'fileName', fileName );
-              this.setState({ image: fileName.location })
+              this.setState({ image: fileName.location, editImg: false })
               alert('Image Uploaded');
             }
           }
@@ -62,13 +68,24 @@ class ProfilePic extends React.Component {
   }
 
   render() {
-    let { image } = this.state;
+    let { image, editImg } = this.state;
       return (
         <div className="ct_profile_pic">
           <img src={image} height={300}/>
-          <div>Upload Size: 250px x 250px ( Max 2MB )</div>
-          <input type="file" onChange={this.fileChangedHandler}/>
-          <button onClick={this.fileUploadHandler}>Upload!</button>
+          { !editImg ? (
+            <button className="ct_edit_btn" onClick={this.editImage}>change picture</button>
+          ) : (
+            <div>
+            <div className="ct_small_txt">Upload Size: Max 2MB </div>
+            <div className="ct_upload-btn-wrapper">
+              <button className="ct_upload_btn">choose a file</button>
+              <input type="file" onChange={this.fileChangedHandler}/>
+            </div>
+            <div>
+            <button className="ct_upload_btn" onClick={this.fileUploadHandler}>upload</button>
+            </div>
+            </div>
+          ) }
         </div>
       )
   }
