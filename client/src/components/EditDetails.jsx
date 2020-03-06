@@ -20,7 +20,14 @@ class EditDetails extends React.Component {
     this.saveChanges = this.saveChanges.bind(this);
     this.toggle = this.toggle.bind(this);
     this.clickDropdown = this.clickDropdown.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
   };
+
+  changeHandler(e) {
+    console.log(e.target.name)
+    console.log(e.target.value)
+    this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
+  }
 
   toggle() {
     this.setState({
@@ -36,7 +43,7 @@ class EditDetails extends React.Component {
     let { heightFt, heightIn, weight, age, dob, zip } = this.state;
     let monthArr = [ ...Array(12).keys() ].map( i => i+1);
     let dayArr = [ ...Array(31).keys() ].map( i => i+1);
-    if (!Number(heightFt) || !Number(heightIn) || !Number(weight) || typeof age !== 'number' || typeof zip !== 'number'
+    if (!Number(heightFt) || !Number(heightIn) || !Number(weight) || !Number(age) || !Number(zip)
     || !monthArr.includes(Number(dob.split('/')[0])) || !dayArr.includes(Number(dob.split('/')[1])) || dob.split('/')[2].length !== 4 
     || !Number(dob.split('/')[2])) {
       alert('please enter valid input');
