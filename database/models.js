@@ -12,6 +12,9 @@ const models = {
   },
   delete: (id) => {
     return Info.destroy({ where: { id } });
+  },
+  upload: (image) => {
+    return Info.update({ image }, { where: { id: 0 } });
   }
 }
 

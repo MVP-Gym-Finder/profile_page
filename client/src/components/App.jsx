@@ -8,6 +8,7 @@ import EditDetails from './EditDetails.jsx';
 import EditGoals from './EditGoals.jsx';
 import axios from 'axios';
 import { Container } from 'reactstrap';
+import FileUpload from './FileUpload.jsx';
 
 
 class App extends React.Component {
@@ -44,8 +45,6 @@ class App extends React.Component {
     return (
       <div className="ct_main">
         <div className="ct_top">{profile.first_name}'s Profile</div>
-        <Container>
-        </Container>
         { Object.keys(profile).length && 
           <div className="ct_profile">
             <div className="ct_pic_BMR">
