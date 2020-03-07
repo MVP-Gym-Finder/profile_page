@@ -52,10 +52,6 @@ const Info = sequelize.define('Info', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  current_w: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
   goal_w: {
     type: DataTypes.STRING,
     allowNull: false
@@ -77,7 +73,7 @@ const Info = sequelize.define('Info', {
     allowNull: false
   },
   image: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: true
   }
   }, {
@@ -85,4 +81,5 @@ const Info = sequelize.define('Info', {
     timestamps: false // opt out of timestamps
 });
 
-module.exports = Info;
+const db = { Info, sequelize }
+module.exports = db;

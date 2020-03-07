@@ -17,7 +17,6 @@ CREATE TABLE info (
   gender VARCHAR NOT NULL,
   dob VARCHAR NOT NULL,
   zip INT NOT NULL,
-  current_w VARCHAR NOT NULL,
   goal_w VARCHAR NOT NULL,
   weekly_goal VARCHAR NOT NULL,
   activity_lvl VARCHAR NOT NULL,

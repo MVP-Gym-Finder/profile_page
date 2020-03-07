@@ -15,6 +15,7 @@ class FitnessGoals extends React.Component {
     this.toggle1 = this.toggle1.bind(this);
     this.toggle2 = this.toggle2.bind(this);
     this.clickDropdown = this.clickDropdown.bind(this);
+    this.updateData = this.updateData.bind(this);
   };
 
   toggle1() {
@@ -33,14 +34,25 @@ class FitnessGoals extends React.Component {
     let workout = {
       [e.target.name]: e.target.innerText
     };
-    this.setState(workout)
+    this.setState(workout, () => this.updateData());
+  };
+
+  updateData() {
+    const { workouts_per_wk, min_per_workout } = this.state;
+    console.log('state:', this.state)
+    const mutation = `
+        mutation updateProfile {
+          updateProfile(
+            id:0,
+            workouts_per_wk:${workouts_per_wk},
+            min_per_workout:${min_per_workout}
+          ) { id } 
+        }`;
     axios
-      .put('/api', workout)
+      .post('/graphql', {query: mutation})
       .then(() => console.log('workout changed'))
       .catch(err => console.error(err));
-    console.log(e.target.name)
-    console.log(e.target.innerText)
-  }
+  };
 
   render() {
     let weekly_workouts = [...Array(29).keys()];

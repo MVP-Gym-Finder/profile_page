@@ -54,8 +54,21 @@ class EditDetails extends React.Component {
       delete details.heightFt;
       delete details.heightIn;
       details.weight = `${this.state.weight} lbs`;
+      const { height, weight, age, gender, dob, zip } = details;
+      const mutation = `
+        mutation updateProfile {
+          updateProfile(
+            id:0,
+            height:"${height}",
+            weight:"${weight}",
+            age:${age},
+            gender:"${gender}",
+            dob:"${dob}",
+            zip:${zip}
+          ) { id } 
+        }`;
       axios
-        .put('/api', details)
+        .post('/graphql', {query: mutation})
         .then(() => console.log('details editted'))
         .catch(err => console.error(err));
     }

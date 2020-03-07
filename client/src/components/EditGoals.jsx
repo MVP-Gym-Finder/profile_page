@@ -30,8 +30,20 @@ class EditGoals extends React.Component {
       let goals = this.state;
       goals.weight = `${this.state.weight} lbs`;
       goals.goal_w = `${this.state.goal_w} lbs`;
+      const { weight, goal_w, weekly_goal, activity_lvl } = goals;
+      console.log('goals:', goals)
+      const mutation = `
+        mutation updateProfile {
+          updateProfile(
+            id:0,
+            weight:"${weight}",
+            goal_w:"${goal_w}",
+            weekly_goal:"${weekly_goal}",
+            activity_lvl:"${activity_lvl}"
+          ) { id } 
+        }`;
       axios
-        .put('/api', goals)
+        .post('/graphql', {query: mutation})
         .then(() => console.log('goals updated'))
         .catch(err => console.error(err));
     }

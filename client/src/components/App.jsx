@@ -22,9 +22,30 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    const query = `
+      {
+          profiles(id:0) {
+            username
+            first_name
+            last_name
+            height
+            weight
+            age
+            gender
+            dob
+            zip
+            current_w
+            goal_w
+            weekly_goal
+            activity_lvl
+            workouts_per_wk
+            min_per_workout
+            image
+        }
+      }`;
     axios
-      .get('/api')
-      .then((result) => this.setState({ profile: result.data }))
+      .post('/graphql', { query })
+      .then((result) => this.setState({ profile: result.data.data.profiles[0] }))
       .catch(err => console.error(err));
   }
 

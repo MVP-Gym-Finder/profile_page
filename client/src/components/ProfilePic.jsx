@@ -30,7 +30,7 @@ class ProfilePic extends React.Component {
     if ( this.state.selectedFile ) {
       data.append('profileImage', this.state.selectedFile, this.state.selectedFile.name);
       axios
-        .post('/api/upload', data, {
+        .post('/upload', data, {
           headers: {
           'accept': 'application/json',
           'Accept-Language': 'en-US,en;q=0.8',

@@ -1,4 +1,4 @@
-const Info = require('./index.js');
+const Info = require('./index.js').Info;
 
 const models = {
   get: (id) => {
