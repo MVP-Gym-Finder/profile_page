@@ -24,9 +24,7 @@ class EditDetails extends React.Component {
   };
 
   changeHandler(e) {
-    console.log(e.target.name)
-    console.log(e.target.value)
-    this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   toggle() {

@@ -31,7 +31,6 @@ class EditGoals extends React.Component {
       goals.weight = `${this.state.weight} lbs`;
       goals.goal_w = `${this.state.goal_w} lbs`;
       const { weight, goal_w, weekly_goal, activity_lvl } = goals;
-      console.log('goals:', goals)
       const mutation = `
         mutation updateProfile {
           updateProfile(
@@ -50,7 +49,7 @@ class EditGoals extends React.Component {
   }
 
   changeHandler(e) {
-    this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   toggle1() {

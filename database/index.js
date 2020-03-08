@@ -4,10 +4,10 @@ const sequelize = new Sequelize('postgres://postgres:@localhost:5432/profile');
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Connection has been established successfully.');
+    console.log('\u001B[33mConnection has been established successfully.');
   })
   .catch(err => {
-    console.error('Unable to connect to the database:', err);
+    console.error('\u001B[31mUnable to connect to the database:', err);
   });
 
 const Info = sequelize.define('Info', {

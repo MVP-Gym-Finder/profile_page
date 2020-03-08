@@ -178,10 +178,7 @@ const Mutation = new GraphQLObjectType({
           }
         },
         resolve(_, args) {
-          const {height, weight, age, gender, dob, zip, goal_w, weekly_goal, activity_lvl, workouts_per_wk, min_per_workout} = args;
-          return db.models.Info.update({
-            height, weight, age, gender, dob, zip, goal_w, weekly_goal, activity_lvl, workouts_per_wk, min_per_workout
-          }, {where: {id: args.id}});
+          return db.models.Info.update(args, {where: {id: args.id}});
         }
       }
     }

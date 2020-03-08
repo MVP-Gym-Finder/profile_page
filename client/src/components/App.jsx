@@ -55,7 +55,6 @@ class App extends React.Component {
 
   render() {
     let { profile, editDetails, editGoals } = this.state;
-    console.log(profile)
     if (editDetails) return <EditDetails profile={profile}/>;
     if (editGoals) return <EditGoals profile={profile}/>;
 

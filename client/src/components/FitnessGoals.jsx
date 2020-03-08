@@ -39,7 +39,6 @@ class FitnessGoals extends React.Component {
 
   updateData() {
     const { workouts_per_wk, min_per_workout } = this.state;
-    console.log('state:', this.state)
     const mutation = `
         mutation updateProfile {
           updateProfile(

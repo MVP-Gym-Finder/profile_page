@@ -1,3 +1,5 @@
+// this file is not used if using graphQL
+
 const router = require('express').Router();
 const controllers = require('./controllers.js');
 const fileUpload = require('./fileUpload.js');
