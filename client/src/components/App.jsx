@@ -57,8 +57,6 @@ class App extends React.Component {
     let { profile, editDetails, editGoals } = this.state;
     if (editDetails) return <EditDetails profile={profile}/>;
     if (editGoals) return <EditGoals profile={profile}/>;
-
-
     return (
       <div className="ct_main">
         <div className="ct_top">{profile.first_name}'s Profile</div>
