@@ -48,7 +48,7 @@ class FitnessGoals extends React.Component {
           ) { id } 
         }`;
     axios
-      .post('/graphql', {query: mutation})
+      .post('/ct/graphql', {query: mutation})
       .then(() => console.log('workout changed'))
       .catch(err => console.error(err));
   };

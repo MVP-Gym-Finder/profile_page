@@ -42,7 +42,7 @@ class EditGoals extends React.Component {
           ) { id } 
         }`;
       axios
-        .post('/graphql', {query: mutation})
+        .post('/ct/graphql', {query: mutation})
         .then(() => console.log('goals updated'))
         .catch(err => console.error(err));
     }

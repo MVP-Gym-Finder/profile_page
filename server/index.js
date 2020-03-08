@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.use('/upload', fileUpload);
-app.use('/graphql', expressGraphQL({
+app.use('/ct/graphql', expressGraphQL({
   schema: Schema,
   pretty: true,
   graphiql: true

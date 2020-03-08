@@ -44,7 +44,7 @@ class App extends React.Component {
         }
       }`;
     axios
-      .post('/graphql', { query })
+      .post('/ct/graphql', { query })
       .then((result) => this.setState({ profile: result.data.data.profiles[0] }))
       .catch(err => console.error(err));
   }
