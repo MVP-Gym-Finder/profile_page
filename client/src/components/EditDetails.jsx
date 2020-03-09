@@ -24,7 +24,7 @@ class EditDetails extends React.Component {
   };
 
   changeHandler(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
   }
 
   toggle() {
@@ -39,11 +39,12 @@ class EditDetails extends React.Component {
 
   saveChanges(e) {
     let { heightFt, heightIn, weight, age, dob, zip } = this.state;
+    console.log('typeof:', Number(heightIn))
     let monthArr = [ ...Array(12).keys() ].map( i => i+1);
     let dayArr = [ ...Array(31).keys() ].map( i => i+1);
-    if (!Number(heightFt) || !Number(heightIn) || !Number(weight) || !Number(age) || !Number(zip)
+    if (Number(heightFt) === NaN || Number(heightIn) === NaN || Number(weight) === NaN || Number(age) === NaN || Number(zip) === NaN
     || !monthArr.includes(Number(dob.split('/')[0])) || !dayArr.includes(Number(dob.split('/')[1])) || dob.split('/')[2].length !== 4 
-    || !Number(dob.split('/')[2])) {
+    || Number(dob.split('/')[2]) === NaN) {
       alert('please enter valid input');
     } else {
       window.location.reload();
