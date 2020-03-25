@@ -16,6 +16,6 @@ const models = {
   upload: (image) => {
     return Info.update({ image }, { where: { id: 0 } });
   }
-}
+};
 
 module.exports = models;

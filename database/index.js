@@ -76,10 +76,10 @@ const Info = sequelize.define('Info', {
     type: DataTypes.STRING,
     allowNull: true
   }
-  }, {
-    tableName: 'info',
-    timestamps: false // opt out of timestamps
+}, {
+  tableName: 'info',
+  timestamps: false // opt out of timestamps
 });
 
-const db = { Info, sequelize }
+const db = { Info, sequelize };
 module.exports = db;

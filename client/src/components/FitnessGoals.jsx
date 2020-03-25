@@ -3,6 +3,9 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
+const weekly_workouts = [...Array(29).keys()];
+const workout_min = [...Array(361).keys()];
+
 class FitnessGoals extends React.Component {
   constructor(props) {
     super(props);
@@ -12,32 +15,28 @@ class FitnessGoals extends React.Component {
       dropdownOpen1: false,
       dropdownOpen2: false
     };
-    this.toggle1 = this.toggle1.bind(this);
-    this.toggle2 = this.toggle2.bind(this);
-    this.clickDropdown = this.clickDropdown.bind(this);
-    this.updateData = this.updateData.bind(this);
-  };
+  }
 
-  toggle1() {
+  toggle1 = () => {
     this.setState({
       dropdownOpen1: !this.state.dropdownOpen1
     });
   };
 
-  toggle2() {
+  toggle2 = () => {
     this.setState({
       dropdownOpen2: !this.state.dropdownOpen2
     });
   };
 
-  clickDropdown(e) {
+  clickDropdown = (e) => {
     let workout = {
       [e.target.name]: e.target.innerText
     };
     this.setState(workout, () => this.updateData());
   };
 
-  updateData() {
+  updateData = () => {
     const { workouts_per_wk, min_per_workout } = this.state;
     const mutation = `
         mutation updateProfile {
@@ -54,8 +53,6 @@ class FitnessGoals extends React.Component {
   };
 
   render() {
-    let weekly_workouts = [...Array(29).keys()];
-    let workout_min = [...Array(361).keys()];
     let { min_per_workout,  workouts_per_wk, dropdownOpen1, dropdownOpen2 } = this.state;
 
     return (
@@ -89,8 +86,8 @@ class FitnessGoals extends React.Component {
           </tr>
         </tbody>
       </table>
-    )
-  };
-};
+    );
+  }
+}
 
 export default FitnessGoals;
