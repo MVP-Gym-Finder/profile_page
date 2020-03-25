@@ -3,6 +3,9 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
+const monthArr = Array.from(Array(12)).map( (_, i) => i + 1);
+const dayArr = Array.from(Array(31)).map( (_, i) => i + 1);
+
 class EditDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -18,33 +21,31 @@ class EditDetails extends React.Component {
       dropdownOpen: false,
     };
     this.saveChanges = this.saveChanges.bind(this);
-    this.toggle = this.toggle.bind(this);
-    this.clickDropdown = this.clickDropdown.bind(this);
-    this.changeHandler = this.changeHandler.bind(this);
-  };
-
-  changeHandler(e) {
-    this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
   }
 
-  toggle() {
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  toggle = () => {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
     });
-  };
+  }
 
-  clickDropdown(e) {
+  clickDropdown = (e) => {
     this.setState({ gender: e.target.innerText });
   }
 
-  saveChanges(e) {
+  isValidInput = () => {
     let { heightFt, heightIn, weight, age, dob, zip } = this.state;
-    console.log('typeof:', Number(heightIn))
-    let monthArr = [ ...Array(12).keys() ].map( i => i+1);
-    let dayArr = [ ...Array(31).keys() ].map( i => i+1);
-    if (Number(heightFt) === NaN || Number(heightIn) === NaN || Number(weight) === NaN || Number(age) === NaN || Number(zip) === NaN
+    return Number(heightFt) === NaN || Number(heightIn) === NaN || Number(weight) === NaN || Number(age) === NaN || Number(zip) === NaN
     || !monthArr.includes(Number(dob.split('/')[0])) || !dayArr.includes(Number(dob.split('/')[1])) || dob.split('/')[2].length !== 4 
-    || Number(dob.split('/')[2]) === NaN) {
+    || Number(dob.split('/')[2]) === NaN;
+  }
+
+  saveChanges = (e) => {
+    if (this.isValidInput()) {
       alert('please enter valid input');
     } else {
       window.location.reload();
@@ -91,48 +92,48 @@ class EditDetails extends React.Component {
             </tr>
             <tr>
               <td>Weight:</td>
-                <td>
-                  <input className="ct_input" value={weight} name="weight" onChange={(e) => this.changeHandler(e)}></input>&nbsp;lbs
-                </td>
+              <td>
+                <input className="ct_input" value={weight} name="weight" onChange={(e) => this.changeHandler(e)}></input>&nbsp;lbs
+              </td>
             </tr>
             <tr>
               <td>Age:</td>
-                <td>
-                  <input className="ct_input" value={age} name="age" onChange={(e) => this.changeHandler(e)}></input>
-                </td>
+              <td>
+                <input className="ct_input" value={age} name="age" onChange={(e) => this.changeHandler(e)}></input>
+              </td>
             </tr>
             <tr>
               <td>Gender:</td>
-                <td>
-                  <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="m" direction="right">
-                    <DropdownToggle outline color="secondary" caret>
-                      {gender}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem onClick={(e) => this.clickDropdown(e)}>Female</DropdownItem>
-                      <DropdownItem onClick={(e) => this.clickDropdown(e)}>Male</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                </td>
+              <td>
+                <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="m" direction="right">
+                  <DropdownToggle outline color="secondary" caret>
+                    {gender}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={(e) => this.clickDropdown(e)}>Female</DropdownItem>
+                    <DropdownItem onClick={(e) => this.clickDropdown(e)}>Male</DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </td>
             </tr>
             <tr>
               <td>Date of Birth:</td>
-                <td>
-                  <input className="ct_input" value={dob} placeholder="MM/DD/YYYY" name="dob" onChange={(e) => this.changeHandler(e)}></input>
-                </td>
+              <td>
+                <input className="ct_input" value={dob} placeholder="MM/DD/YYYY" name="dob" onChange={(e) => this.changeHandler(e)}></input>
+              </td>
             </tr>
             <tr>
               <td>Zip Code:</td>
-                <td>
-                  <input className="ct_input" value={zip} name="zip" onChange={(e) => this.changeHandler(e)}></input>
-                </td>
+              <td>
+                <input className="ct_input" value={zip} name="zip" onChange={(e) => this.changeHandler(e)}></input>
+              </td>
             </tr>
           </tbody>
         </table>
-      <button className="ct_save_btn" name="editDetails" onClick={(e) => this.saveChanges(e)}>Save</button>
+        <button className="ct_save_btn" name="editDetails" onClick={(e) => this.saveChanges(e)}>Save</button>
       </div>
-    )
-  };
-};
+    );
+  }
+}
 
 export default EditDetails;
