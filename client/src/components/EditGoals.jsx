@@ -3,10 +3,13 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
 import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 
+const goals = ['Lose 0.5 lbs per week', 'Lose 1 lb per week', 'Lose 1.5 lbs per week', 'Lose 2 lbs per week', 'Maintain weight', 'Gain 0.5 lbs per week', 'Gain 1 lb per week'];
+const levels = ['Not Very Active', 'Lightly Active', 'Active', 'Very Active'];
+
 class EditGoals extends React.Component {
   constructor(props) {
     super(props);
-    let { weight, goal_w, weekly_goal, activity_lvl } = props.profile;
+    const { weight, goal_w, weekly_goal, activity_lvl } = props.profile;
     this.state = {
       weight: weight.split(' ')[0],
       goal_w: goal_w.split(' ')[0],
@@ -15,56 +18,52 @@ class EditGoals extends React.Component {
       dropdownOpen1: false,
       dropdownOpen2: false
     };
-    this.saveChanges = this.saveChanges.bind(this);
-    this.toggle1 = this.toggle1.bind(this);
-    this.toggle2 = this.toggle2.bind(this);
-    this.clickDropdown = this.clickDropdown.bind(this);
-  };
+  }
 
-  saveChanges() {
-    let { weight, goal_w } = this.state;
+  saveChanges = () => {
+    const { weight, goal_w } = this.state;
     if (!Number(weight) || !Number(goal_w)) {
-      alert('please enter valid input');
+      return alert('please enter valid input');
     } else {
-      window.location.reload();
       let goals = this.state;
       goals.weight = `${this.state.weight} lbs`;
       goals.goal_w = `${this.state.goal_w} lbs`;
       const { weight, goal_w, weekly_goal, activity_lvl } = goals;
       const mutation = `
-        mutation updateProfile {
-          updateProfile(
-            id:0,
-            weight:"${weight}",
-            goal_w:"${goal_w}",
-            weekly_goal:"${weekly_goal}",
-            activity_lvl:"${activity_lvl}"
+      mutation updateProfile {
+        updateProfile(
+          id:0,
+          weight:"${weight}",
+          goal_w:"${goal_w}",
+          weekly_goal:"${weekly_goal}",
+          activity_lvl:"${activity_lvl}"
           ) { id } 
         }`;
       axios
         .post('/ct/graphql', {query: mutation})
         .then(() => console.log('goals updated'))
         .catch(err => console.error(err));
+      window.location.reload();
     }
   }
 
-  changeHandler(e) {
+  changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  toggle1() {
+  toggle1 = () => {
     this.setState({
       dropdownOpen1: !this.state.dropdownOpen1
     });
-  };
+  }
 
-  toggle2() {
+  toggle2 = () => {
     this.setState({
       dropdownOpen2: !this.state.dropdownOpen2
     });
   };
 
-  clickDropdown(e) {
+  clickDropdown = (e) => {
     let goal = {
       [e.target.name]: e.target.innerText
     };
@@ -72,10 +71,8 @@ class EditGoals extends React.Component {
   }
 
   render() {
-    let { weight, goal_w, weekly_goal, activity_lvl, dropdownOpen1, dropdownOpen2 } = this.state;
-    let goals = ['Lose 0.5 lbs per week', 'Lose 1 lb per week', 'Lose 1.5 lbs per week', 'Lose 2 lbs per week', 'Maintain weight', 'Gain 0.5 lbs per week', 'Gain 1 lb per week'];
-    let levels = ['Not Very Active', 'Lightly Active', 'Active', 'Very Active'];
-    let { profile } = this.props;
+    const { weight, goal_w, weekly_goal, activity_lvl, dropdownOpen1, dropdownOpen2 } = this.state;
+    const { profile } = this.props;
     return (
       <div className="ct_edit_goals">
         <div className="ct_top">{profile.first_name}'s Profile</div>
@@ -102,7 +99,7 @@ class EditGoals extends React.Component {
                     {weekly_goal}
                   </DropdownToggle>
                   <DropdownMenu className="ct_dropdown">
-                    { goals.map((goal, index) =>  <DropdownItem name="weekly_goal" key={index} onClick={(e) => this.clickDropdown(e)}>{goal}</DropdownItem>) }
+                    { goals.map((goal, index) => <DropdownItem name="weekly_goal" key={index} onClick={(e) => this.clickDropdown(e)}>{goal}</DropdownItem>) }
                   </DropdownMenu>
                 </Dropdown>
               </td>
@@ -122,10 +119,10 @@ class EditGoals extends React.Component {
             </tr>
           </tbody>
         </table>
-      <button className="ct_save_btn" name="editGoals" onClick={(e) => this.saveChanges(e)}>Save</button>
+        <button className="ct_save_btn" name="editGoals" onClick={(e) => this.saveChanges(e)}>Save</button>
       </div>
-    )
-  };
-};
+    );
+  }
+}
 
 export default EditGoals;

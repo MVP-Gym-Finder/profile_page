@@ -10,7 +10,7 @@ class BMR extends React.Component {
       keyword: '',
       verb: ''
     };
-  };
+  }
 
   componentDidMount() {
     let { profile } = this.props;

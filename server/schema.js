@@ -15,100 +15,100 @@ const Profile = new GraphQLObjectType({
       username: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.username
+          return profile.username;
         }
       },
       first_name: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.first_name
+          return profile.first_name;
         }
       },
       last_name: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.last_name
+          return profile.last_name;
         }
       },
       height: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.height
+          return profile.height;
         }
       },
       weight: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.weight
+          return profile.weight;
         }
       },
       age: {
         type: GraphQLInt,
         resolve(profile) {
-          return profile.age
+          return profile.age;
         }
       },
       gender: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.gender
+          return profile.gender;
         }
       },
       dob: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.dob
+          return profile.dob;
         }
       },
       zip: {
         type: GraphQLInt,
         resolve(profile) {
-          return profile.zip
+          return profile.zip;
         }
       },
       current_w: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.current_w
+          return profile.current_w;
         }
       },
       goal_w: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.goal_w
+          return profile.goal_w;
         }
       },
       weekly_goal: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.weekly_goal
+          return profile.weekly_goal;
         }
       },
       activity_lvl: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.activity_lvl
+          return profile.activity_lvl;
         }
       },
       workouts_per_wk: {
         type: GraphQLInt,
         resolve(profile) {
-          return profile.workouts_per_wk
+          return profile.workouts_per_wk;
         }
       },
       min_per_workout: {
         type: GraphQLInt,
         resolve(profile) {
-          return profile.min_per_workout
+          return profile.min_per_workout;
         }
       },
       image: {
         type: GraphQLString,
         resolve(profile) {
-          return profile.image
+          return profile.image;
         }
       }
-    }
+    };
   }
 });
 
@@ -130,7 +130,7 @@ const Query = new GraphQLObjectType({
       }
     };
   }
-})
+});
 
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -181,9 +181,9 @@ const Mutation = new GraphQLObjectType({
           return db.models.Info.update(args, {where: {id: args.id}});
         }
       }
-    }
+    };
   }
-})
+});
 
 const Schema = new GraphQLSchema({
   query: Query,

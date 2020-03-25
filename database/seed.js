@@ -1,7 +1,4 @@
-// import _ from 'lodash';
-// import faker from 'faker';
-
-var example = [{
+const example = [{
   id: 0,
   username: 'christ123092',
   first_name: 'Christine',
@@ -22,9 +19,3 @@ var example = [{
 
 const Info = require('./index.js').Info;
 Info.create(example[0]);
-
-// _.times(10, () => {
-//   return Info.create({
-//     username: faker.name
-//   })
-// })

@@ -16,12 +16,11 @@ class App extends React.Component {
       editDetails: false,
       editGoals: false,
       dropdownOpen: false
-
     };
     this.clickHandler = this.clickHandler.bind(this);
-  };
+  }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const query = `
       {
           profiles(id:0) {
@@ -82,7 +81,7 @@ class App extends React.Component {
         }
       </div>
     );
-  };
-};
+  }
+}
 
 export default App;
