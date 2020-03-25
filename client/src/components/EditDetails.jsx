@@ -9,10 +9,11 @@ const dayArr = Array.from(Array(31)).map( (_, i) => i + 1);
 class EditDetails extends React.Component {
   constructor(props) {
     super(props);
-    let { height, weight, age, gender, dob, zip } = props.profile;
+    const { height, weight, age, gender, dob, zip } = props.profile;
+    const [heightFt, heightIn] = height.split('/');
     this.state = {
-      heightFt: height.split('/')[0],
-      heightIn: height.split('/')[1],
+      heightFt,
+      heightIn,
       weight: weight.split(' ')[0],
       age,
       gender,
@@ -38,40 +39,47 @@ class EditDetails extends React.Component {
   }
 
   isValidInput = () => {
-    let { heightFt, heightIn, weight, age, dob, zip } = this.state;
-    return Number(heightFt) === NaN || Number(heightIn) === NaN || Number(weight) === NaN || Number(age) === NaN || Number(zip) === NaN
-    || !monthArr.includes(Number(dob.split('/')[0])) || !dayArr.includes(Number(dob.split('/')[1])) || dob.split('/')[2].length !== 4 
-    || Number(dob.split('/')[2]) === NaN;
+    const { heightFt, heightIn, weight, age, dob, zip } = this.state;
+    const [birthMonth, birthDay, birthYear] = dob.split('/');
+    return (
+      Number(heightFt) === NaN || 
+      Number(heightIn) === NaN || 
+      Number(weight) === NaN || 
+      Number(age) === NaN || 
+      Number(zip) === NaN || 
+      !monthArr.includes(Number(birthMonth)) || 
+      !dayArr.includes(Number(birthDay)) || 
+      birthYear.length !== 4 || 
+      Number(dob.split('/')[2]) === NaN);
   }
 
-  saveChanges = (e) => {
+  saveChanges = () => {
     if (this.isValidInput()) {
-      alert('please enter valid input');
-    } else {
-      window.location.reload();
-      let details = this.state;
-      details.height = `${this.state.heightFt}/${this.state.heightIn}`;
-      delete details.heightFt;
-      delete details.heightIn;
-      details.weight = `${this.state.weight} lbs`;
-      const { height, weight, age, gender, dob, zip } = details;
-      const mutation = `
-        mutation updateProfile {
-          updateProfile(
-            id:0,
-            height:"${height}",
-            weight:"${weight}",
-            age:${age},
-            gender:"${gender}",
-            dob:"${dob}",
-            zip:${zip}
-          ) { id } 
-        }`;
-      axios
-        .post('/ct/graphql', {query: mutation})
-        .then(() => console.log('details editted'))
-        .catch(err => console.error(err));
+      return alert('please enter valid input');
     }
+    let details = this.state;
+    details.height = `${this.state.heightFt}/${this.state.heightIn}`;
+    delete details.heightFt;
+    delete details.heightIn;
+    details.weight = `${this.state.weight} lbs`;
+    const { height, weight, age, gender, dob, zip } = details;
+    const mutation = `
+      mutation updateProfile {
+        updateProfile(
+          id:0,
+          height:"${height}",
+          weight:"${weight}",
+          age:${age},
+          gender:"${gender}",
+          dob:"${dob}",
+          zip:${zip}
+        ) { id } 
+      }`;
+    axios
+      .post('/ct/graphql', {query: mutation})
+      .then(() => console.log('details editted'))
+      .catch(err => console.error(err));
+    window.location.reload();
   }
 
   render() {
