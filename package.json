@@ -44,7 +44,7 @@
     "faker": "^4.1.0",
     "file-type": "^14.1.3",
     "fs": "0.0.1-security",
-    "graphiql": "^0.17.5",
+    "graphiql": "^1.4.7",
     "graphql": "^14.6.0",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
