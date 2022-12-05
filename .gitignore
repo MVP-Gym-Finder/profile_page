@@ -9,3 +9,4 @@ CTbundle.js
 
 ## security key ##
 server/env/key.js
+config.bat
